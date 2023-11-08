@@ -16,7 +16,16 @@ GET http://localhost:9080/javaee/api/users/c4804e0f-769e-4ab9-9ebe-0578fb4f00a6
 GET http://localhost:9080/javaee/api/users/c4804e0f-769e-4ab9-9ebe-0578fb4f00a6/portrait
 
 
+########## E X E C U T I O N S ###########
 
+###
+GET http://localhost:9080/javaee/api/users/ed6cfb2a-cad7-47dd-9b56-9d1e3c7a4197/executions
+
+###
+GET http://localhost:9080/javaee/api/executions/
+
+###
+GET http://localhost:9080/javaee/api/executions/f8c3de3d-1fea-4d7c-a8b0-29f63c4c3455
 
 
 
@@ -95,7 +104,7 @@ Content-Type: application/json
   "strength": 12,
   "constitution": 12,
   "charisma": 12,
-  "profession": "3bb5b0d5-7e22-466f-8c3f-be4baa3d3b8c"
+  "profession": "f5875513-bf7b-4ae1-b8a5-5b70a1b90e76"
 }
 
 ###

@@ -13,6 +13,8 @@ import pl.edu.pg.eti.kask.rpg.character.dto.function.RequestToCharacterFunction;
 import pl.edu.pg.eti.kask.rpg.character.dto.function.UpdateCharacterWithRequestFunction;
 import pl.edu.pg.eti.kask.rpg.character.entity.Character;
 import pl.edu.pg.eti.kask.rpg.character.entity.Profession;
+import pl.edu.pg.eti.kask.rpg.execution.dto.function.ExecutionToResponseFunction;
+import pl.edu.pg.eti.kask.rpg.execution.dto.function.ExecutionsToResponseFunction;
 import pl.edu.pg.eti.kask.rpg.user.dto.GetUserResponse;
 import pl.edu.pg.eti.kask.rpg.user.dto.GetUsersResponse;
 import pl.edu.pg.eti.kask.rpg.user.dto.PutUserRequest;
@@ -22,6 +24,11 @@ import pl.edu.pg.eti.kask.rpg.user.dto.function.UpdateUserWithRequestFunction;
 import pl.edu.pg.eti.kask.rpg.user.dto.function.UserToResponseFunction;
 import pl.edu.pg.eti.kask.rpg.user.dto.function.UsersToResponseFunction;
 import pl.edu.pg.eti.kask.rpg.user.entity.User;
+
+
+import pl.edu.pg.eti.kask.rpg.execution.dto.function.ExecutionToResponseFunction;
+import pl.edu.pg.eti.kask.rpg.execution.dto.function.ExecutionsToResponseFunction;
+import pl.edu.pg.eti.kask.rpg.execution.dto.function.RequestToExecutionFunction;
 
 import java.util.function.Function;
 
@@ -132,5 +139,21 @@ public class DtoFunctionFactory {
     public UserToResponseFunction userToResponse() {
         return new UserToResponseFunction();
     }
+
+
+    // ----------------------------------------------------------------
+
+    public ExecutionToResponseFunction executionToResponse() {
+        return new ExecutionToResponseFunction();
+    }
+
+    public ExecutionsToResponseFunction executionsToResponse() {
+        return new ExecutionsToResponseFunction();
+    }
+
+    public RequestToExecutionFunction requestToExecution() {
+        return new RequestToExecutionFunction();
+    }
+
 
 }

@@ -13,6 +13,7 @@ import pl.edu.pg.eti.kask.rpg.character.controller.api.CharacterController;
 import pl.edu.pg.eti.kask.rpg.character.controller.api.ProfessionController;
 import pl.edu.pg.eti.kask.rpg.character.dto.PatchCharacterRequest;
 import pl.edu.pg.eti.kask.rpg.character.dto.PutCharacterRequest;
+import pl.edu.pg.eti.kask.rpg.execution.controller.api.ExecutionController;
 import pl.edu.pg.eti.kask.rpg.user.controller.api.UserController;
 
 import java.io.IOException;
@@ -42,6 +43,8 @@ public class ApiServlet extends HttpServlet {
     private final ProfessionController professionController;
 
     private final UserController userController;
+
+    private final ExecutionController executionController;
 
     /**
      * Definition of paths supported by this servlet. Separate inner class provides
@@ -108,6 +111,13 @@ public class ApiServlet extends HttpServlet {
         public static final Pattern USER_PORTRAIT = Pattern
                 .compile("/users/(%s)/portrait".formatted(UUID.pattern()));
 
+        public static final Pattern EXECUTION = Pattern.compile("/executions/(%s)".formatted(UUID.pattern()));
+
+        public static final Pattern EXECUTIONS = Pattern.compile("/executions/?");
+
+        public static final Pattern USER_EXECUTIONS = Pattern
+                .compile("/users/(%s)/executions/?".formatted(UUID.pattern()));
+
     }
 
     /**
@@ -120,12 +130,13 @@ public class ApiServlet extends HttpServlet {
     private final Jsonb jsonb = JsonbBuilder.create();
 
     @Inject
-    public ApiServlet(CharacterController characterController, ProfessionController professionController, UserController userController) {
+    public ApiServlet(CharacterController characterController, ProfessionController professionController,
+            UserController userController, ExecutionController executionController) {
         this.characterController = characterController;
         this.professionController = professionController;
         this.userController = userController;
+        this.executionController = executionController;
     }
-
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response)
@@ -189,6 +200,20 @@ public class ApiServlet extends HttpServlet {
                 byte[] portrait = userController.getUserPortrait(uuid);
                 response.setContentLength(portrait.length);
                 response.getOutputStream().write(portrait);
+                return;
+            } else if (path.matches(Patterns.EXECUTION.pattern())) {
+                response.setContentType("application/json");
+                UUID uuid = extractUuid(Patterns.EXECUTION, path);
+                response.getWriter().write(jsonb.toJson(executionController.getExecution(uuid)));
+                return;
+            } else if (path.matches(Patterns.EXECUTIONS.pattern())) {
+                response.setContentType("application/json");
+                response.getWriter().write(jsonb.toJson(executionController.getExecutions()));
+                return;
+            } else if (path.matches(Patterns.USER_EXECUTIONS.pattern())) {
+                response.setContentType("application/json");
+                UUID uuid = extractUuid(Patterns.USER_EXECUTIONS, path);
+                response.getWriter().write(jsonb.toJson(executionController.getUserExecutions(uuid)));
                 return;
             }
         }
